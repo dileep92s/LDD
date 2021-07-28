@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "fs.h": "c",
+        "module.h": "c",
+        "types.h": "c",
+        "fscrypt.h": "c"
+    }
+}
