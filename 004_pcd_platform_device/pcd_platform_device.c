@@ -4,6 +4,11 @@
 #include "linux/platform_device.h"
 #include "pcd_platform.h"
 
+#ifdef pr_fmt
+#undef pr_fmt
+#endif
+#define pr_fmt(msg) "pcd_platform_device:%s: " msg, __func__
+
 void pcdev_release(struct device *dev);
 
 struct pcdev_platform_data pcdev_data[2] = {
@@ -23,7 +28,7 @@ static int __init pcdev_init(void)
 {
     platform_device_register(&pcdev1);
     platform_device_register(&pcdev2);
-    pr_info("init done");
+    pr_info("init done\n");
     return 0;
 }
 
@@ -31,12 +36,12 @@ static void __exit pcdev_exit(void)
 {
     platform_device_unregister(&pcdev1);
     platform_device_unregister(&pcdev2);
-    pr_info("exit done");
+    pr_info("exit done\n");
 }
 
 void pcdev_release(struct device *dev)
 {
-    pr_info("release done");
+    pr_info("release done\n");
 }
 
 module_init(pcdev_init);
