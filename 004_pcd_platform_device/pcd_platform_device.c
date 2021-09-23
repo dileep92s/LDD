@@ -3,6 +3,10 @@
 #include "linux/fs.h"
 #include "linux/platform_device.h"
 #include "pcd_platform.h"
+#ifdef pr_fmt
+#undef pr_fmt
+#endif
+#define pr_fmt(msg) "pcd_platform_device:%s: " msg, __func__
 
 #ifdef pr_fmt
 #undef pr_fmt
@@ -11,9 +15,8 @@
 
 void pcdev_release(struct device *dev);
 
-struct pcdev_platform_data pcdev_data[2] = {
-    [0] = {.size = 512, .perm = O_RDWR, .serial_number = "PCDEV001"},
-    [1] = {.size = 512, .perm = O_RDWR, .serial_number = "PCDEV002"}};
+struct pcdev_platform_data pcdev_data[2] = {[0] = {.size = 512, .perm = O_RDWR, .serial_number = "PCDEV001"},
+                                            [1] = {.size = 512, .perm = O_RDWR, .serial_number = "PCDEV002"}};
 
 struct platform_device pcdev1 = {.name = "pseudo-char-device",
                                  .id = 0,

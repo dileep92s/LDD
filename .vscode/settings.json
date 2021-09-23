@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "device.h": "c",
-        "fs.h": "c",
-        "module.h": "c"
-    }
-}

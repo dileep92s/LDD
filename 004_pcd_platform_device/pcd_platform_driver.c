@@ -70,10 +70,9 @@ struct file_operations pcd_fops = {.open = pcd_open,
 
 int pcd_platform_driver_probe(struct platform_device *pdev)
 {
-    struct pcdev_private_data *pcdev_prv_data;
     struct pcdev_platform_data *pcdev_pf_data;
 
-    pcdev_pf_data = (pcdev_platform_data)dev_get_platdata(pdev->dev);
+    pcdev_pf_data = (struct pcdev_platform_data *)dev_get_platdata(&pdev->dev);
 
     pr_info("\n");
     return 0;
@@ -95,14 +94,14 @@ static int __init pcdev_init(void)
     int ret;
 
     ret = alloc_chrdev_region(&pcdrv_data.dev_num_base, MINOR_BASE, MINOR_COUNT, "pfdev");
-    if(ret < 0)
+    if (ret < 0)
     {
         pr_err("alloc_chrdev_region failed");
         return ret;
     }
 
     pcdrv_data.class_pcd = class_create(THIS_MODULE, "pfdev_class");
-    if(IS_ERR(pcdrv_data.class_pcd))
+    if (IS_ERR(pcdrv_data.class_pcd))
     {
         pr_err("class_create failed");
         unregister_chrdev_region(pcdrv_data.dev_num_base, MINOR_COUNT);
